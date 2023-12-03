@@ -9,10 +9,7 @@ r = 0
 
 for sx, sy, ex, ey in p:
     n = int(''.join(m[sx-1:ex, sy:ey].flatten()))
-
-    q = full(v.shape, False)
-    q[sx-2:ex+1,sy-1:ey+1] = True
-
+    (q := full(v.shape, False))[sx-2:ex+1,sy-1:ey+1] = True
     r += s[q].any()*n
     c += 1 * (q & v > 0)
     v *= q*n + ~q*1
