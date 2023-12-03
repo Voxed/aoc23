@@ -5,7 +5,7 @@ s = ~z & (m != '.')
 p = (w := column_stack)(
     (w((e := nonzero)(z & ~(t := roll(z, 1, 1)))), w(e(~z & t))))
 c = zeros(m.shape)
-v = (m == '*').astype(int)
+v = array(m == '*', int)
 r = 0
 for h, j, k, l in p:
     n = int(''.join(m[h:k+1, j:l].flatten()))
