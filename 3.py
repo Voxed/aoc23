@@ -11,4 +11,3 @@ for h, j, k, l in o:
     x += 1 * (q & (e > 0))
     e *= q*n + ~q*1
 print(d, e[x == 2].sum())
-print((x == 2).sum())
