@@ -1,6 +1,5 @@
 from numpy import *
-w = column_stack
-g = nonzero
+w, g = column_stack, nonzero
 m = pad([[*f.strip()] for f in open("input.txt")], 1, constant_values='.')
 z = char.isdigit(m)
 t = roll(z, 1, 1)
