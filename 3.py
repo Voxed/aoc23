@@ -9,8 +9,12 @@ r = 0
 
 for sx, sy, ex, ey in p:
     n = int(''.join(m[sx-1:ex, sy:ey].flatten()))
+
+    q = full(v.shape, False)
+    q[sx-2:ex+1,sy-1:ey+1] = True
+
     r += s[sx-2:ex+1,sy-1:ey+1].any()*n
-    c[sx-2:ex+1,sy-1:ey+1][v[sx-2:ex+1,sy-1:ey+1] > 0] += 1
-    v[sx-2:ex+1,sy-1:ey+1][v[sx-2:ex+1,sy-1:ey+1] > 0] *= n
+    c += 1 * (q & v > 0)
+    v *= q*n + ~q*1
 
 print(r, v[c == 2].sum())
