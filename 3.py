@@ -2,10 +2,10 @@ from numpy import *
 m = pad([[*f.strip()] for f in open("input.txt")], 1, constant_values='.')
 z = char.isdigit(m)
 s = ~z & (m != '.')
-c = zeros(m.shape)
-v = (m == '*').astype(int)
 p = (w := column_stack)(
     (w((e := nonzero)(z & ~(t := roll(z, 1, 1)))), w(e(~z & t))))
+c = zeros(m.shape)
+v = (m == '*').astype(int)
 r = 0
 for h, j, k, l in p:
     n = int(''.join(m[h:k+1, j:l].flatten()))
