@@ -9,5 +9,5 @@ for h, j, k, l in o:
     (q := full(e.shape, False))[h-1:k+2, j-1:l+1] = True
     d += v[q].any()*n
     x += q*e > 0
-    e *= q*n+~q*1
+    e *= q*n+~q
 print(d, e[x == 2].sum())
