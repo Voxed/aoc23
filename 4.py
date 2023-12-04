@@ -1,13 +1,8 @@
 from numpy import *
-c = ([[[int(m) for m in n.split(' ') if m.isnumeric()]
-     for n in f.strip().split('|')] for f in open('input.txt')])
-w, x = {}, range(0, len(c))
-r, t = 0, 0
-while len(x) > 0:
-    t, y, x = t+len(x), x, []
-    for i in y:
-        if i not in w:
-            w[i] = [*(indices(intersect1d(*c[i]).shape)+1+i).flatten()]
-            r += floor(pow(2, len(w[i])-1))
-        x += w[i]
-print(r, t)
+from itertools import *
+from functools import *
+
+c = array(list(zip_longest(*[[0]*(i+1) + [1]*len(a & b) for i, (a, b) in enumerate([[set([int(m)
+          for m in n.split() if m.isnumeric()]) for n in f.strip().split('|')] for f in open('input.txt')])], fillvalue=0)))
+print((1 << c.sum(0)-1).sum(), reduce(lambda a,
+      b: vstack([a, c.dot(a[-1])]), range(len(c)), [[1]*len(c)]).sum())
