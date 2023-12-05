@@ -38,9 +38,9 @@ def intersect_range(a, b):
     return (intersection, slices)
 
 
-def get_min_location(_objects):
+def get_min_location(objects):
     """Calculate the minimum location of an object in objects"""
-    objects = _objects.copy()
+    objects = objects.copy()
     min_location = inf
     for o_state, o_range in objects:
         while 1:
