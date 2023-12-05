@@ -8,8 +8,6 @@ objects_p1 = [('seed', (p, p + 1))
 objects_p2 = [('seed', (p[0], p[0] + p[1]))
               for p in array(reshape(chunks[0][0].split()[1:], (-1, 2)), int64)]
 
-print(objects_p2)
-
 # Decode convertors and name progression
 convertors = []
 implicit_convertors = set()
