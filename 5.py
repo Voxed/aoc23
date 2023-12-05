@@ -19,6 +19,16 @@ for raw_name, *raw_convertors in chunks[1:]:
         convertors.append(
             (c_from, c_to, c_source, c_source+c_length, c_dest-c_source))
 
+def intersect_range(a_start, a_end, b_start, b_end):
+    intersection = (max(a_start, b_start), min(a_end, b_end))
+    if intersection[0] >= intersection[1]:
+        return None
+    chunks = []
+    if a_start < intersection[0]:
+        chunks.append((a_start, b_start))
+    if a_end > intersection[1]:
+        chunks.append((b_end, a_end))
+    return (intersection, chunks)
 
 def get_min_location(objects):
     '''Calculate the minimum location of an object in objects'''
@@ -26,12 +36,16 @@ def get_min_location(objects):
     for o_state, o_start, o_end in objects:
         while o_state != 'location':
             for c_from, c_to, c_start, c_end, c_shift in convertors:
-                if c_from == o_state and c_start <= o_start < c_end:
-                    if o_end > c_end:
-                        objects.append((o_state, c_end, o_end))
-                    o_state, o_start, o_end = c_to, o_start + \
-                        c_shift, min(o_end, c_end) + c_shift
-                    break
+                if c_from == o_state:
+                    intersection = intersect_range(o_start, o_end, c_start, c_end)
+                    if intersection is not None:
+                        o_start, o_end = intersection[0]
+                        o_start += c_shift
+                        o_end += c_shift
+                        for slice in intersection[1]:
+                            objects.append((o_state, slice[0], slice[1]))
+                        o_state = c_to
+                        break
             else:
                 o_state = name_progression[o_state]
         min_location = min(o_start, min_location)
@@ -40,3 +54,6 @@ def get_min_location(objects):
 
 # Print answers
 print(get_min_location(objects_p1), get_min_location(objects_p2))
+
+
+print(intersect_range(5, 10, 30, 100))
