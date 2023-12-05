@@ -22,6 +22,7 @@ for raw_name, *raw_convertors in chunks[1:]:
             (c_from, c_to, (c_source, c_source+c_length), c_dest-c_source))
 convertors += list(implicit_convertors)
 
+
 def intersect_range(a, b):
     """
     Intersect two ranges.
@@ -43,16 +44,16 @@ def get_min_location(objects):
     """Calculate the minimum location of an object in objects"""
     min_location = inf
     for o_state, o_range in objects:
-        while o_state != 'location':
+        while 1:
             for c_from, c_to, c_range, c_shift in convertors:
                 if c_from == o_state:
-                    intersection = intersect_range(
-                        o_range, c_range)
-                    if intersection is not None:
+                    if (intersection := intersect_range(o_range, c_range)) is not None:
                         objects += [(o_state, slice)
                                     for slice in intersection[1]]
                         o_state, o_range = c_to, add(intersection[0], c_shift)
                         break
+            else:
+                break
         min_location = min(o_range[0], min_location)
     return min_location
 
