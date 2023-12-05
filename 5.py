@@ -19,7 +19,13 @@ for raw_name, *raw_convertors in chunks[1:]:
         convertors.append(
             (c_from, c_to, c_source, c_source+c_length, c_dest-c_source))
 
+
 def intersect_range(a_start, a_end, b_start, b_end):
+    """
+    Intersect two ranges.
+    Returns (intersection, slices) where slices is a list of cut off parts. 
+    Returns None if no intersection is found.
+    """
     intersection = (max(a_start, b_start), min(a_end, b_end))
     if intersection[0] >= intersection[1]:
         return None
@@ -30,14 +36,16 @@ def intersect_range(a_start, a_end, b_start, b_end):
         slices.append((b_end, a_end))
     return (intersection, slices)
 
+
 def get_min_location(objects):
-    '''Calculate the minimum location of an object in objects'''
+    """Calculate the minimum location of an object in objects"""
     min_location = float('inf')
     for o_state, o_start, o_end in objects:
         while o_state != 'location':
             for c_from, c_to, c_start, c_end, c_shift in convertors:
                 if c_from == o_state:
-                    intersection = intersect_range(o_start, o_end, c_start, c_end)
+                    intersection = intersect_range(
+                        o_start, o_end, c_start, c_end)
                     if intersection is not None:
                         o_start, o_end = intersection[0]
                         o_start += c_shift
