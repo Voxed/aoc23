@@ -13,20 +13,18 @@ for raw_name, *raw_convertors in chunks[1:]:
         convertors.append((c_from, c_to, c_source, c_source+c_length, c_dest-c_source))
 
 def get_min_location(objects):
-    m = float('inf')
+    min_location = float('inf')
     for o_state, o_start, o_end in objects:
         while o_state != 'location':
             for c_from, c_to, c_start, c_end, c_shift in convertors:
-                if c_from == o_state and c_start <= o_start and c_end > o_start:
-                    tmp_end = o_end
+                if c_from == o_state and c_start <= o_start < c_end:
                     if o_end > c_end:
-                        tmp_end = c_end
                         objects.append((o_state, c_end, o_end))
-                    o_state, o_start, o_end = c_to, o_start + c_shift, tmp_end + c_shift
+                    o_state, o_start, o_end = c_to, o_start + c_shift, min(o_end, c_end) + c_shift
                     break
             else:
-                o_state, o_start, o_end = name_progression[o_state], o_start, o_end            
-        m = min(o_start, m)
-    return m
+                o_state = name_progression[o_state]            
+        min_location = min(o_start, min_location)
+    return min_location
 
 print(get_min_location(objects_p1), get_min_location(objects_p2))
