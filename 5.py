@@ -23,12 +23,12 @@ def intersect_range(a_start, a_end, b_start, b_end):
     intersection = (max(a_start, b_start), min(a_end, b_end))
     if intersection[0] >= intersection[1]:
         return None
-    chunks = []
+    slices = []
     if a_start < intersection[0]:
-        chunks.append((a_start, b_start))
+        slices.append((a_start, b_start))
     if a_end > intersection[1]:
-        chunks.append((b_end, a_end))
-    return (intersection, chunks)
+        slices.append((b_end, a_end))
+    return (intersection, slices)
 
 def get_min_location(objects):
     '''Calculate the minimum location of an object in objects'''
