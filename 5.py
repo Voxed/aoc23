@@ -47,9 +47,7 @@ def get_min_location(objects):
                     intersection = intersect_range(
                         o_start, o_end, c_start, c_end)
                     if intersection is not None:
-                        o_start, o_end = intersection[0]
-                        o_start += c_shift
-                        o_end += c_shift
+                        o_start, o_end = add(intersection[0], c_shift)
                         for slice in intersection[1]:
                             objects.append((o_state, slice[0], slice[1]))
                         o_state = c_to
@@ -62,6 +60,3 @@ def get_min_location(objects):
 
 # Print answers
 print(get_min_location(objects_p1), get_min_location(objects_p2))
-
-
-print(intersect_range(5, 10, 30, 100))
