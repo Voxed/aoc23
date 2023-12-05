@@ -1,41 +1,32 @@
 from numpy import *
+chunks = [r.strip().split('\n') for r in open('input.txt').read().split('\n\n')]
+objects_p2 = [('seed', p[0], p[0] + p[1]) for p in array(reshape(chunks[0][0].split()[1:], (-1, 2)), int64)]
+objects_p1 = [('seed', p, p + 1) for p in array(chunks[0][0].split()[1:], int64)]
+convertors = []
+name_progression = {}
 
-maps = []
-nm = {}
-inn = [r.split('\n') for r in open('input.txt').read().split('\n\n')]
+for raw_name, *raw_convertors in chunks[1:]:
+    c_from, _, c_to = raw_name.split()[0].split('-')
+    name_progression[c_from] = c_to
+    for r in raw_convertors:
+        c_dest, c_source, c_length = map(int, r.split())
+        convertors.append((c_from, c_to, c_source, c_source+c_length, c_dest-c_source))
 
-seeds = [('seed', p[0], p[0] + p[1]) for p in list(reshape([int(e) for e in inn[0][0].split()[1:]], (-1, 2)))]
-print('SEEDS:')
-print(seeds)
+def get_min_location(objects):
+    m = float('inf')
+    for o_state, o_start, o_end in objects:
+        while o_state != 'location':
+            for c_from, c_to, c_start, c_end, c_shift in convertors:
+                if c_from == o_state and c_start <= o_start and c_end > o_start:
+                    tmp_end = o_end
+                    if o_end > c_end:
+                        tmp_end = c_end
+                        objects.append((o_state, c_end, o_end))
+                    o_state, o_start, o_end = c_to, o_start + c_shift, tmp_end + c_shift
+                    break
+            else:
+                o_state, o_start, o_end = name_progression[o_state], o_start, o_end            
+        m = min(o_start, m)
+    return m
 
-for l in inn[1:]:
-    f, _, t = l[0].split()[0].split('-')
-    nm[f] = t
-    for r in l[1:]:
-        if r != '':
-            d, s, r = map(int, r.split())
-            maps.append((f, t, s, s+r, d-s))
-
-dest = []
-m = None
-
-
-
-for o, os, oe in seeds:
-    while o != 'location':
-        for f, t, rs, re, s in maps:
-            if f == o and rs <= os and re > os:
-                old = oe
-                if oe > re:
-                    old = re
-                    seeds.append((o, re, re + (oe - re)))
-                o, os, oe = t, os + s, old + s
-                break
-        else:
-            o, os, oe = nm[o], os, oe            
-    if m is None:
-        m = os
-    elif m > os:
-        m = os
-
-print(m)
+print(get_min_location(objects_p1), get_min_location(objects_p2))
