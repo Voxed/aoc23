@@ -13,8 +13,7 @@ def perm(hand, values):
         case [c, *_]:
             return [[c, *q] for q in perm(hand[1:], values)]
 
-hands = [(list(a), int(b)) for a, b in [l.strip().split()
-                                        for l in open('input.txt')]]
+hands = [(list(a), int(b)) for a, b in [l.strip().split() for l in open('input.txt')]]
 
 p1 = [(hand_value(hand), digit_value(hand, '23456789TJQKA'), points)
       for (hand, points) in hands]
