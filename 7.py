@@ -1,11 +1,8 @@
 from itertools import *
 from functools import *
 
-def hand_value(h):
-    return sum([10**v for v in dict((i, h.count(i)) for i in h).values()])
-
-def digit_value(h, value_chart):
-    return reduce(lambda a, b: (a + value_chart.index(b)) << 4, h, 0)
+hand_value = lambda h: sum([10**v for v in dict((i, h.count(i)) for i in h).values()])
+digit_value = lambda h, value_chart: reduce(lambda a, b: (a + value_chart.index(b)) << 4, h, 0)
 
 def perm(hand, values):
     match hand:
