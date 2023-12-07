@@ -8,10 +8,10 @@ def perm(hand, values):
     match hand:
         case []:
             return [[]]
-        case ['J', *_]:
-            return chain(*[[[b, *q] for b in values] for q in perm(hand[1:], values)])
-        case [c, *_]:
-            return [[c, *q] for q in perm(hand[1:], values)]
+        case ['J', *r]:
+            return chain(*[[[b, *q] for b in values] for q in perm(r, values)])
+        case [c, *r]:
+            return [[c, *q] for q in perm(r, values)]
 
 hands = [(list(a), int(b)) for a, b in [l.strip().split() for l in open('input.txt')]]
 
