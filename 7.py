@@ -15,8 +15,7 @@ def perm(hand, values):
 
 hands = [(list(a), int(b)) for a, b in [l.strip().split() for l in open('input.txt')]]
 
-p1 = [(hand_value(hand), digit_value(hand, '23456789TJQKA'), points)
-      for (hand, points) in hands]
+p1 = [(hand_value(h), digit_value(h, '23456789TJQKA'), p) for (h, p) in hands]
 
 value_chart = 'J23456789TQKA'
 p2 = [sorted([(hand_value(p), digit_value(hand, value_chart), points) for p in perm(hand, value_chart)])[-1] 
