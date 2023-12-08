@@ -1,6 +1,6 @@
 import math
 
-sequence, nodes = [(s.strip(), dict([(n[:3], n[-9:-1].split(', ')) for n in n.split('\n')]))
+sequence, nodes = [(s, dict([(n[:3], n[-9:-1].split(', ')) for n in n.split('\n')]))
                    for s, n in [open('input.txt').read().strip().split('\n\n')]][0]
 
 def steps(pos):
