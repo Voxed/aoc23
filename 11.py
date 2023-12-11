@@ -1,8 +1,7 @@
 from numpy import *
 from itertools import * 
 m = array([[*l.strip()] for l in open('input.txt').readlines()])
-er = all(m == '.', 1)
-ec = all(m.transpose() == '.', 1)
+er, ec = all(m == '.', 1), all(m.transpose() == '.', 1)
 distances = []
 for d in (2, 1000000):
     s = 0.0
