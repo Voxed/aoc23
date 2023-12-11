@@ -1,7 +1,7 @@
 from numpy import *
 from itertools import *
 m = array([[*l.strip()] for l in open('input.txt').readlines()])
-er, ec = all(m == '.', 1), all(m.transpose() == '.', 1)
+er, ec = all(m == '.', 1), all(m == '.', 0)
 for d in (2, 1000000):
     p = [*combinations(argwhere(m == '#'), 2)]
     print(int(sum([*map(float, [(er[y1:y2].sum() + ec[x1:x2].sum())*d + (~er)[y1:y2].sum() + (~ec)[x1:x2].sum()
