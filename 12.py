@@ -11,17 +11,18 @@ def scan(arr):
 @functools.cache
 def consume(v, g):
     while v > 0:
-        if not g:
-            return None
-        e, g = g[0], g[1:]
-        v -= abs(e)
-        if (e > 0 and v < 0) or (e < 0 and v == 0 and g):
-            return None
-        if v == 0 and g:
-            g = (g[0] + 1,) + g[1:]
-        else:
-            g = (v+1,)*(v < 0 and e < 0) + g
-    return g
+        match g:
+            case e, *g:
+                v -= abs(e)
+                if (e > 0 and v < 0) or (e < 0 and v == 0 and g):
+                    return None
+                if v == 0 and g:
+                    g = [g[0] + 1] + g[1:]
+                else:
+                    g = [v+1]*(v < 0 and e < 0) + g
+            case _:
+                return None
+    return tuple(g)
 
 
 @functools.cache
