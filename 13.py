@@ -10,7 +10,6 @@ for p in pattern:
         a, b = flipud(p[:r,:]), p[r:,:]
         h = min(a.shape[0], b.shape[0])
         a, b = a[:h, :], b[:h, :]
-        a = a[:h, :]
         s += (a == b).all() * r * 100
         t += ((~(a == b)).sum() == 1) * r * 100
 
