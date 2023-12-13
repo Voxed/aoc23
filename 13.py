@@ -1,7 +1,7 @@
 from numpy import *
 
 s, t = 0, 0
-for p in [array(list(map(list, p.split('\n')))) for p in open('input.txt').read().split('\n\n')]:
+for p in [array(list(map(list, p.split('\n')))) for p in open('input.txt').read().strip().split('\n\n')]:
     for r in range(0, p.shape[0]):
         a, b = flipud(p[:r, :]), p[r:, :]
         h = min(a.shape[0], b.shape[0])
