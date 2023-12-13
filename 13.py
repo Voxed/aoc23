@@ -13,11 +13,11 @@ for p in pattern:
         s += (a == b).all() * r * 100
         t += ((~(a == b)).sum() == 1) * r * 100
 
-    for r in range(0, p.shape[1]):
-        a, b = fliplr(p[:,:r]), p[:,r:]
+    for c in range(0, p.shape[1]):
+        a, b = fliplr(p[:,:c]), p[:,c:]
         w = min(a.shape[1], b.shape[1])
         a, b = a[:, :w], b[:, :w]
-        s += (a == b).all() * r
-        t += ((~(a == b)).sum() == 1) * r
+        s += (a == b).all() * c
+        t += ((~(a == b)).sum() == 1) * c
 
 print(s, t)
