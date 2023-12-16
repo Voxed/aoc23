@@ -52,17 +52,7 @@ for i in ([((-1, y), (1, 0)) for y in range(0, m.shape[0])] + [((m.shape[1], y),
         return steps(p, d) + 1
 
     print(steps(*i))
-    #s.append(((0,0), (1,0)))
     un = set([a[0] for a in s])
-
-    #for y in range(0, m.shape[1]):
-    #    for x in range(0, m.shape[0]):
-    #        if (x,y) in un:
-    #            print('#', end='')
-    #        else:
-    #            print('.', end='')
-    #    print('')
-
     print(len(un))
     n = max(n, len(un))
 print(n)
