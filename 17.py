@@ -1,9 +1,9 @@
-from scipy.sparse import csr_matrix
-from scipy.sparse.csgraph import dijkstra
+from scipy.sparse import *
 from numpy import *
 
 m = [array(list(l.strip()), int) for l in open('input.txt')]
 num_nodes = len(m[0]) * len(m) * 2
+
 
 def shortest(minimum, maximum):
     indices = []
@@ -23,10 +23,9 @@ def shortest(minimum, maximum):
                             data.append(c)
             indptr.append(len(indices))
 
-    return min(
-        dijkstra(
-            csr_matrix((data + [0, 0], indices + [0, 1], indptr +
-                       [len(indices) + 2]), (num_nodes + 1, num_nodes + 1)),
-            True, num_nodes)[-3:-1])
+    return min(csgraph.dijkstra(csr_matrix((data + [0, 0], indices + [0, 1], indptr +
+                                            [len(indices) + 2]), (num_nodes + 1, num_nodes + 1)),
+                                True, num_nodes)[-3:-1])
+
 
 print(shortest(1, 3), shortest(4, 10))
