@@ -1,19 +1,9 @@
 from shapely import *
-
-i = [l.strip().split() for l in open('input.txt')]
-
-a = [(0, 0)]
-b = [(0, 0)]
-r = {'R': (0, 1), 'D': (1, 0), 'L': (0, -1), 'U': (-1, 0)}
-
-for d, l, c in i:
-    d = r[d]
-    a += [(a[-1][0] + d[0]*int(l), a[-1][1] + d[1]*int(l))]
-    d = [*r.values()][int(c[-2], 16)]
-    l = int(c[-7:-2], 16)
-    b += [(b[-1][0] + d[0]*int(l), b[-1][1] + d[1]*int(l))]
-
-print(
-    int(Polygon(a).buffer(0.5, join_style=2).area),
-    int(Polygon(b).buffer(0.5, join_style=2).area)
-)
+from numpy import *
+from functools import *
+i = [(a, int(b), int(c[-7:-2], 16), int(c[-2], 16)) for a,b,c in [l.strip().split() for l in open('input.txt')]]
+s, t = array([[0, 1], [1, 0], [0, -1], [-1, 0]]), array([0, 0])
+print(*[int(Polygon(u).buffer(0.5, join_style=2).area) for u in [
+    reduce(lambda u, i: u + [u[-1] + s['RDLU'.index(i[0])]*i[1]], i, [t]), 
+    reduce(lambda u, i: u + [u[-1] + s[i[3]]*i[2]], i, [t])
+]])
