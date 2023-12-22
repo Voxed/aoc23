@@ -77,12 +77,12 @@ for i, b in enumerate(new_bricks):
 print(s, s2)
 
 # Warning this opens a browser window which lags alot on the big input :)
-if False:
+if True:
     def cubes(size, pos_x, pos_y, pos_z, color):
         x, y, z = meshgrid(
-            linspace(pos_x-size/2, pos_x+size/2, 2), 
-            linspace(pos_y-size/2, pos_y+size/2, 2), 
-            linspace(pos_z-size/2, pos_z+size/2, 2),
+            linspace(pos_x, pos_x+size, 2), 
+            linspace(pos_y, pos_y+size, 2), 
+            linspace(pos_z, pos_z+size, 2),
         )
         x = x.flatten()
         y = y.flatten()
