@@ -35,7 +35,6 @@ for i, b in enumerate(new_bricks):
 s = 0
 supported_by = {}
 supporting = {}
-
 for i, b in enumerate(new_bricks):
     good = False
     if i not in supporting:
