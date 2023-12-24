@@ -1,6 +1,4 @@
 from numpy import *
-
-from numpy import *
 from itertools import *
 
 lines = array([[m.split(', ') for m in l.strip().split(' @ ')]
