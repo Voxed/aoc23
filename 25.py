@@ -1,4 +1,3 @@
-from numpy import *
 from collections import *
 from networkx import *
 from matplotlib import pyplot as plt
