@@ -1,6 +1,4 @@
-from collections import *
 from networkx import *
-from matplotlib import pyplot as plt
 
 G = Graph(dict([(a, b.split()) for a, b in [l.strip().split(': ') for l in open('input.txt')]]))
 
